@@ -1,0 +1,28 @@
+AWSTemplateFormatVersion: '2010-09-09'
+
+Parameters:
+  DynamoAttribute:
+    Type: String
+  NombreDynamo:
+    Type: String
+
+Resources:
+  DynamoDBZeroToHero:
+    Type: AWS::DynamoDB::Table
+    Properties: 
+      AttributeDefinitions: 
+        - AttributeName: !Ref DynamoAttribute
+          AttributeType: S
+      BillingMode: PAY_PER_REQUEST
+      KeySchema: 
+        - AttributeName: !Ref DynamoAttribute
+          KeyType: HASH
+      SSESpecification: 
+        SSEEnabled: true
+      TableName: !Ref NombreDynamo
+
+Outputs:
+  NombreDynamo: 
+    Value: !Ref DynamoDBZeroToHero
+    Export:
+      Name: NombreDynamo
