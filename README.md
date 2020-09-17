@@ -63,7 +63,7 @@
   + `Resources: set of resources` (OBLIGATORIO)
     + Especifica los recursos y las propiedades a crear.
   + `Outputs: set of outputs` (opcional)
-    + Valores devueltos de las prppiedades del stack.
+    + Valores devueltos de las propiedades del stack.
 
 ## Stacks: caracteristicas y despliegue
 - Stack; colección de recursos que se manejan como una unidad
@@ -74,5 +74,22 @@
 - Qué puedo identificar con un Drift? Recursos agregados, eliminados y con propiedades diferentes.
 
 ## StackSet: despliegue multi-cuenta
+- Qué tipo de cuentas existen?; Administrador y cuentas target.
+- Desde dónde se despliegan recursos multi-cuenta?; Se debe hacer desde una cuenta maestra que tenga permisos sobre las otras.
+- Instancia de stack; hace referencia a un staj dentro de una cuenta.
+- Diferentes parámetros; se pueden desplegar stack set que cambien de parámetros dependiendo de la cuenta destino.
 
-  
+## Nested Stacks
++ Límites de CloudFormation
+  + 100 Mappings
+  + 200 Resources
+  + 51,200 bytes; Cuerpo de template para crear `CreateStack`, `UpdateStack`, `ValidateTemplate`
+  + 460,800 bytes; Tamaño máximo de template en S3
++ Cuando usar nested stacks
+  + Para crear recursos que necesiten pasar los límites de CloudFormation
+  + Cada recurso queda con un stack independiente (Granularidad)
+  + Se pueden crear precedencias y condiciones entre recursos.
+  + Los stacks se comunican entre sí a través de outputs.
+
+
+
