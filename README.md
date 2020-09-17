@@ -56,7 +56,23 @@
     + Valores que se le pasan a la plantilla cuando se crea o actualiza un stack. Pueden ser referenciados desde Resources o Outputs
   + `Mappings: set of mappings` (opcional)
     + Llave valor asociados que se usan para parámetros condicionales. Similar a una tabla de búsqueda. Utiliza la función `Fn::FindInMap`
-  
+  + `Conditions: set of conditions` (opcional)
+    + Si la condición es true, entonces crea otro volúmen.
+  + `Transform: set of transforms` (opcional)
+    + Para aplicaciones serverless, si se especifica se pueden sar sintaxis de AWS SAM
+  + `Resources: set of resources` (OBLIGATORIO)
+    + Especifica los recursos y las propiedades a crear.
+  + `Outputs: set of outputs` (opcional)
+    + Valores devueltos de las prppiedades del stack.
 
-  
+## Stacks: caracteristicas y despliegue
+- Stack; colección de recursos que se manejan como una unidad
+- CloudFormation asegura que todos los recursos sean creados o eliminados.
+- Y si un recurso falla?; se hace rollback a todos los recursos del stack
+- Qué pasa si borro un stack?; se borran los recursos asociados a ese stack.
+- Qué es un drift (desviación)? Detecta una desviación entre el stack y los recursos desplegados.
+- Qué puedo identificar con un Drift? Recursos agregados, eliminados y con propiedades diferentes.
+
+## StackSet: despliegue multi-cuenta
+
   
