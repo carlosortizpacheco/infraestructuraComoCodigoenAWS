@@ -1,2 +1,3 @@
-# infraestructuraComoCodigoenAWS
-Curso de Platzi para aprender Cloud Formation.
+# Infraestructura como código en AWS
+
+
