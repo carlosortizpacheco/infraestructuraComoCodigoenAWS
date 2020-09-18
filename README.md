@@ -91,5 +91,33 @@
   + Se pueden crear precedencias y condiciones entre recursos.
   + Los stacks se comunican entre sí a través de outputs.
 
-
-
+## Funciones intrínsecas
++ **GetAtt**
+  + Devuelve el valor de un atributo de un recurso en el template
+  + Se compone del nombre del recurso y del atributo
+  + Sintaxis version 1
+    + `{"Fn::GetAtt" : ["LogicalNameOfResource", "attributeName"]}`
+  + Sintaxis version 2
+    + `Fn::GetAtt : ["LogicalNameOfResource", "attributeName"]`
+  + Sintaxis version 3
+    + `!GetAtt LogicalNameOfResource.attributeName`
+  + Cuando usar GetAtt; cuando se quiere tomar algún atributo de un recurso dentro del mismo stack.
++ **FindInMap**
+  + Devuelve el valor correspondiente al map declarado en la sección Mappings.
+  + MapName, TopLevelKey y SecondLevelKey
+  + Sintaxis version 1
+    + `{"Fn::FindInMap" : [ "MapName", "TopLevelKey", "SecondLevelKey" ]}`
+  + Sintaxis version 2
+    + `Fn::FindInMap: [ MapName, TopLevelKey, SecondLevelKey ]`
+  + Sintaxis version 3
+    + `!FindInMap [ MapName, TopLevelKey, SecondLevelKey ]`
+  + Cuándo usar FindInMap; Cuando necesitamos en el template algún valor de la sección Mappings.
++ **Funcionalidad**
+  + Une un listado de valores en uno solo
+  + Se compone de un listado de valores y un limitador
+  + Sintaxis version 1
+    + `{"Fn::Join" : [ "delimiter", [list of values] ]}`
+  + Sintaxis version 2
+    + `Fn::Join : [ delimiter, [list of values] ]`
+  + Sintaxis version 3
+    + `!Join [delimiter, [list of values] ]`
