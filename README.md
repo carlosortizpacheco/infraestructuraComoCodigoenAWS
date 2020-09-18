@@ -92,7 +92,7 @@
   + Los stacks se comunican entre sí a través de outputs.
 
 ## Funciones intrínsecas
-+ **GetAtt**
+### **GetAtt**
   + Devuelve el valor de un atributo de un recurso en el template
   + Se compone del nombre del recurso y del atributo
   + Sintaxis version 1
@@ -102,7 +102,7 @@
   + Sintaxis version 3
     + `!GetAtt LogicalNameOfResource.attributeName`
   + Cuando usar GetAtt; cuando se quiere tomar algún atributo de un recurso dentro del mismo stack.
-+ **FindInMap**
+### **FindInMap**
   + Devuelve el valor correspondiente al map declarado en la sección Mappings.
   + MapName, TopLevelKey y SecondLevelKey
   + Sintaxis version 1
@@ -112,7 +112,7 @@
   + Sintaxis version 3
     + `!FindInMap [ MapName, TopLevelKey, SecondLevelKey ]`
   + Cuándo usar FindInMap; Cuando necesitamos en el template algún valor de la sección Mappings.
-+ **Funcionalidad**
+### **Join**
   + Une un listado de valores en uno solo
   + Se compone de un listado de valores y un limitador
   + Sintaxis version 1
@@ -121,3 +121,109 @@
     + `Fn::Join : [ delimiter, [list of values] ]`
   + Sintaxis version 3
     + `!Join [delimiter, [list of values] ]`
+  + Cuándo usar Join?; `"a:b:c" !Join[":"[a,b,c]] [a,b,c]`
+### **Split**
+  + Dividir una cadena en una lista de valores
+  + Sintaxis version 1
+    + `{"Fn::Split" : ["delimeter","source string"]}`
+  + Sintaxis version 2
+    + `Fn::Split [delimeter, source string]`
+  + Sintaxis version 3
+    + `!Split [delimeter, source string]`
+### **Select**
+  + Selecciona un valor de una lista de valores.
+  + Sintaxis version 1
+    + `{"Fn::Select" : [ index, listOfObjects ]}`
+  + Sintaxis version 2
+    + `Fn::Select: [ index, listOfObjects ]`
+  + Sintaxis version 3
+    + `!Select [ index, listOfObjects ]`
+  + Cuándo usar Split/Select
+    + Cuando necesitemos dividir un arreglo en valores independientes y tomar solo uno de esos valores.
+### **Sub**
+  + Sustituye una variable con un input que nosotros especifiquemos
+  + Se construye de la siguiente manera: `String VarName:ValueName`
+  + Sintaxis version 1
+    + `{"Fn::Sub" : [ String, { Var1Name:Var1Value, Var2Name:Var2Value } ]}`
+  + Sintaxis version 2
+    + ```JSON
+      Fn::Sub:
+    - String 
+    - { Var1Name: Var1Value, Var2Name: Var2Value }```
+  + Sintaxis version 3
+    + ```xml
+      !Sub
+    - String
+    - { Var1Name: Var1Value, Var2Name: Var2Value }```
+  + Cuándo usar Sub?; Cuando se requiera reemplazar un valor en un String, puede ser un pseudo parameter
+    + `AWS::AccountId` Número de la cuenta de AWS.
+    + `AWS::NotificationARNs` Arns del stack actual.
+    + `AWS::NoValue` Remueve un valor de la propiedad.
+    + `AWS::Partition` Devuelve la partición de un recurso.
+    + `AWS::Region` Devuelve la región actual del stack
+    + `AWS::StackName` Devuelve el nombre del stack
+    + `AWS::StackId` Devuelve el Id del stack
+    + `AWS::URLSuffix` Devuelve el sufijo de un dominio
+    + Ejemplo:
+      + `!Sub 'arn:aws:ec2${AWS::Region}${AWS::AccountID}:vpc${vpc}'`
+### **Ref**
+  + Retorna un valr de un parámetro o un recurso
+  + La sintaxis es: `Stringm VarNam:ValueName`
+  + Sintaxis version 1
+    + `{"Ref" : "logicalName" } ]}`
+  + Sintaxis version 2
+    + `Ref: logicalName`
+  + Sintaxis version 3
+    + !Ref logicalName
+  + Cuando ocupar *Ref*
+    + Cuando se necesite hacer referencia a un parametro
+    + Cuando queramos hacer referencia a una propiedad de un recurso que no este en GetAtt
+### **Import Value**
+  + Devuelve el valor de una salida exportada de otro stack
+  + Referencia al nombre lógico del recurso exportado
+  + Sintaxis version 1
+    + `{"Fn::ImportValue" : sharedValueToImport } ]}`
+  + Sintaxis version 2
+    + `Fn::ImportValue: sharedValueToImport`
+  + Sintaxis version 3
+    + !ImportValue sharedValueToImport
+  + Cuando utilizarlo; se llama a un *Export* de otro stack. Cuando queremos llamara a una propiedad exportada de otro stack
+
+## Funciones Condicionales
+
+###  IF
+  + Retorna un valor si una condicion se cumple y otra si no se cumple
+  + Se compone de la siguiente manera: `!if[condition_name, value_if_true, value_if_false]`
+### OR
+  + Returna true si un valor es true o false si un valor es falso
+  + Se compone de la siguiente manera: `!Or[ Condition,... ]`
+### AND
+  + Retorna true si todos los valores son true o false si algún valor es falso
+  + Se compone de la siguiente manera: `!And[condition]`
+### EQUALS
+  + Retuorna true si 2 valores son giuale o false si no lo son.
+  + `!Equals [value1, value2]`
+  
+## Importancia de la automatización de infraestructura
+- Despliegue en tiempos cortos
+- Integridad de la infraestructura
+- Pipelines seguros sin exponer datos sensibles
+- Reutilización de componentes.
+- Trazbilidad en todos los despliegues
+- Rollback automático ante errores.
+
+
+## Como automatizar despliegues de infraestructura
+- **Codecommit**; Trazabilidad en todos los despliegues; es el Github de AWS.
+- **Cloudformation**; infraestructura como código.
+- **Codepipeline**; orquesta todos los componentes de despliegue.
+- **Codebuild**; compilación y creación de artefactos.
+- **Github**; Repositorio del código.
+- **IAM**; Gestión de roles en el pipeline.
+- **Cloudwatch**; monitoreo de todos los despliegues.
+- **S3**; Almacenar los artefactos.
+- **SecretManager** Gestión de secretos.
+- **KMS**; llaves de seguridad en el pipeline.
+
+##
+
