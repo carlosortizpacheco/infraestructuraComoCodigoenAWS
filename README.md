@@ -225,5 +225,36 @@
 - **SecretManager** Gestión de secretos.
 - **KMS**; llaves de seguridad en el pipeline.
 
-##
+## Seguridad en Templates
+- Cadenas de conexión, tokens, claves, etc.
+- Interactuar con otros servicios de AWS para lamacenar esta información sensible que no debe ser expuesta
++ SecretsManager
+  + Rotar, administrar y recuperar credenciales de BD, claves y otros secretos
++ ParameterStore
+  + Almacenamiento seguro y jeráquico para la gestión de datos de configuración y secretos
++ Seguridad en despliegues
+  + Artefactos; garantizar que los artefactos estén almacenados en S3 y protegidos
+  + Tokens; Utilizar tokens de repositorios para hacer la integración con el pipeline de despliegue
+  
+## Troubleshooting
+- CREATE_COMPLETE; creacion completada de uno o más stacks
+- CREATE_IN_PROGRESS; creación de uno o más stacks en proceso
+- CREATE_FAILED; creación fallida de uno o más stacks(Revisar permisos, parámtros rechazados)
+- DELETE_COMPLETE; Eliminación completa de recursos dentro del stack. Tiempo de retención 90 días.
+- DELETE_FAILED; Eliminación fallida de recursos. 
+- DELETE_IN_PROGRESS; Proceso de eliminación no ha terminado.
+- REVIEW_IN_PROGRESS; Esta en proceso un change set, pero aún no ha sido ejecutado.
+- ROLLBACK_COMPLETE; Eliminación completa de los recursos después de encontrar un error.
+- ROLLBACK_FAILED; Eliminación fallida de recursos después de encontrar algún error en el stack
+- ROLLBACK_IN_PROGRESS; Proceso de eliminación de recursos sin haber terminado.
+- UPDATE_COMPLETE; Actualización completa de uno o más stacks
+- UPDATE_COMPLETE_CLEANUP_IN_PROGRESS; Eliminación de recursos de uno o más stacks después de ser actualizados.
+- UPDATE_IN_PROGRESS; Actualización de un stack en progreso
+- UPDATE_ROLLBACK_COMPLETE; Vuelta al estado inicial de un stack después de una actualización fallida.
+- UPDATE_ROLLBACK_COMPLETE_CLEANUP_IN_PROGRESS; Eliminación en proceso de recursos de uno o más stacks después de un error en la actualización.
+- UPDATE_ROLLBACK_FAILED; Restauración errónea al estado anterior después de una actualización fallida.
+
+
+  
+
 
